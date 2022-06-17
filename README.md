@@ -1,3 +1,5 @@
+<div align="center">
+
 ### Hi there 👋
 
 <!--
@@ -15,6 +17,6 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
-<div align="center">
+
   <img height="180em" width="80%" src="https://github-readme-stats.vercel.app/api?username=SbloodyS&count_private=true&show_icons=true&theme=cobalt"/>
 </p>
