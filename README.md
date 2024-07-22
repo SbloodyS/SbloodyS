@@ -18,5 +18,5 @@ Here are some ideas to get you started:
 -->
 
 
-  <img height="180em" width="80%" src="https://github-readme-stats.vercel.app/api?username=SbloodyS&count_private=true&show_icons=true&theme=cobalt&hide=rank"/>
+  <img height="180em" width="80%" src="https://github-readme-stats.vercel.app/api?username=SbloodyS&count_private=true&show_icons=true&theme=cobalt&hide_rank=true"/>
 </p>
