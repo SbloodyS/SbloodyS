@@ -8,7 +8,7 @@
 
 <br clear="both">
 
-<p align="center">- 📚 I'm currently learning how to write clean code<br>- ⚡ In my free time I like to write code</p>
+<p align="center">- 📚 I'm currently learning how to write clean code<br>- ⚡ In my free time I like to write some code and babysit</p>
 
 ###
 
