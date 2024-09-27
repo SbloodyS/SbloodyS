@@ -1,11 +1,8 @@
 name: Auto Green
 
 on:
-  push:
-    branches:
-      - main
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "* * */1 * *"
 
 jobs:
   auto-green:
@@ -16,6 +13,7 @@ jobs:
 
       - name: Run Auto green
         run: |
+          set -x
           git config --local user.email "460888207@qq.com"
           git config --local user.name "SbloodyS"
           git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
