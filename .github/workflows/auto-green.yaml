@@ -1,0 +1,24 @@
+name: Auto Green
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "*/15 * * * *"
+
+jobs:
+  auto-green:
+    name: Auto Green
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Auto green
+        run: |
+          git config --local user.email "46088207@qq.com"
+          git config --local user.name "SbloodyS"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git pull --rebase
+          git commit --allow-empty -m "a commit a day keeps the doctor away"
+          git push
