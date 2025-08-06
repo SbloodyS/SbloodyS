@@ -2,7 +2,8 @@ name: Auto Green
 
 on:
   schedule:
-    - cron: "0 */8 * * *"
+    - cron: "0 * * * *"  # 每小时触发一次
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
   auto-green:
@@ -10,13 +11,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 拉取所有历史记录
 
-      - name: Run Auto green
+      - name: 随机决定是否执行
+        id: random
+        run: |
+          # 生成随机数(1-100)，设定约20%的概率执行，每天大约会执行4-5次
+          # 后续会进一步限制每天最多3次
+          rand=$((RANDOM % 100 + 1))
+          if [ $rand -le 20 ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 检查今日已执行次数
+        if: steps.random.outputs.should_run == 'true'
+        id: check_count
+        run: |
+          # 获取今天的日期(UTC)
+          today=$(date -u +"%Y-%m-%d")
+          
+          # 统计今天的提交次数
+          count=$(git log --since="$today 00:00:00" --until="$today 23:59:59" --grep="a commit a day keeps the doctor away" --pretty=oneline | wc -l)
+          
+          echo "今日已执行次数: $count"
+          echo "today=$today" >> $GITHUB_OUTPUT
+          echo "count=$count" >> $GITHUB_OUTPUT
+
+      - name: 执行Auto Green
+        if: steps.random.outputs.should_run == 'true' && steps.check_count.outputs.count < 3
         run: |
           set -x
           git config --local user.email "460888207@qq.com"
           git config --local user.name "SbloodyS"
           git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git pull --rebase
-          git commit --allow-empty -m "a commit a day keeps the doctor away"
+          git commit --allow-empty -m "a commit a day keeps the doctor away [$(date -u)]"
           git push
