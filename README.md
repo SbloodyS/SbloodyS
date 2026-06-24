@@ -51,9 +51,3 @@
 </div>
 
 ###
-
-<div align="center">
-  <img src="https://profile-counter.glitch.me/SbloodyS/count.svg?"  />
-</div>
-
-###
